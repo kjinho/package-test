@@ -1,0 +1,51 @@
+* Package-Test 
+
+This is a package to demonstrate the technique described in Ashok
+Khanna's article [[https://ashok-khanna.medium.com/package-management-in-common-lisp-the-clim-way-d3a334bc73ef][Package Management in Common Lisp—the CLIM Way]].
+
+Specifically, a single main package (in this case ~:package-test~)
+exports all symbols that the sub-packages define and rely on. The main
+package does not provide definitions for any of these symbols.
+Instead, the sub-packages ~use~ the main package, thereby gaining access
+to all of ~:package-test~'s symbols. The sub-packages then provide
+definitions for those symbols and re-export them. As a consequence,
+any package that uses or imports the main-package gains access to the
+definitions in the sub-packages automatically.
+
+The raison d'être for this technique is to avoid problems with
+circular dependencies---it now becomes possible to for each
+sub-package to refer to the definitions in all of the other
+sub-packages without specifically declaring dependencies on them.
+
+One drawback of this technique is that it can make it harder to find
+the location of the definitions for each of these symbols. Of course,
+with the use of SLIME or other creature comforts, developers can still
+quickly jump to the correct definition.
+
+** Tests
+
+This package uses ~rove~ for tests. To execute the tests, execute the
+following at the shell in the top-level directory of this package:
+
+#+BEGIN_SRC sh
+rove package-test.asd
+#+END_SRC
+
+** License
+
+Copyright 2021 Jin-Ho King.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
