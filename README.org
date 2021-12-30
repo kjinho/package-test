@@ -35,6 +35,9 @@ following at the shell in the top-level directory of this package:
 rove package-test.asd
 #+END_SRC
 
+This package is tested to work with [[http://www.sbcl.org/][SBCL]], [[https://ccl.clozure.com/][CCL]], [[https://common-lisp.net/project/ecl/][ECL]], and [[https://abcl.org/][ABCL]] on
+GNU/Linux and MacOS.
+
 ** License
 
 Copyright 2021 Jin-Ho King.
