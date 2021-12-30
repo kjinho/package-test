@@ -1,15 +1,15 @@
 (defpackage b
   (:use :cl :package-test)
   (:export
-   :test-c
-   :test-d))
+   :add3
+   :add4))
 
 (in-package :b)
 
-(defun test-c (n)
+(defun add3 (n)
   "Adds 3"
   (+ n 3))
 
-(defun test-d (n)
+(defun add4 (n)
   "Adds 4"
   (+ n 4))

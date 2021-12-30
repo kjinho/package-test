@@ -1,8 +1,10 @@
 (defpackage package-test
   (:use :cl)
   (:export
-   :test-a
-   :test-b
-   :test-c
-   :test-d))
+   ;; a.lisp
+   :add1
+   :add2
+   ;; b.lisp
+   :add3
+   :add4))
 (in-package :package-test)
