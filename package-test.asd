@@ -1,7 +1,7 @@
 (defsystem "package-test"
   :version "0.1.0"
-  :author ""
-  :license ""
+  :author "Jin-Ho King"
+  :license "MIT-0 License"
   :depends-on ()
   :components ((:module
                 "src"
@@ -10,12 +10,12 @@
                  (:file "a")
                  (:file "b")
                         )))
-  :description ""
+  :description "Demonstration of \"CLIM\"-style sub-package management"
   :in-order-to ((test-op (test-op "package-test/tests"))))
 
 (defsystem "package-test/tests"
-  :author ""
-  :license ""
+  :author "Jin-Ho King"
+  :license "MIT-0 License"
   :depends-on ("package-test"
                "rove")
   :components ((:module "tests"
