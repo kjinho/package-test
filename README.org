@@ -1,5 +1,9 @@
 * Package-Test 
 
+#+CAPTION: CI Badge
+#+NAME: badge:ci
+[[[[https://github.com/kjinho/package-test/actions/workflows/ci.yml]]][[[file:https://github.com/kjinho/package-test/actions/workflows/ci.yml/badge.svg]]]]
+
 This is a package to demonstrate the technique described in Ashok
 Khanna's article [[https://ashok-khanna.medium.com/package-management-in-common-lisp-the-clim-way-d3a334bc73ef][Package Management in Common Lisp—the CLIM Way]].
 
