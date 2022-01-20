@@ -26,10 +26,19 @@ the location of the definitions for each of these symbols. Of course,
 with the use of SLIME or other creature comforts, developers can still
 quickly jump to the correct definition.
 
+** Loading the System
+
+The file ~package-test.asd~ names the system ~package-test~. To load 
+the system and the packages it contains, you may execute 
+~(asdf:load-system "package-test")~ in the REPL. 
+Once loaded, the package's functions are callable with the 
+~package-test~ prefix: e.g., ~(package-test:add4 12)~.
+
 ** Tests
 
-This package uses ~rove~ for tests. To execute the tests, execute the
-following at the shell in the top-level directory of this package:
+This package uses ~rove~ for tests. To execute the tests with ~rove~ 
+installed through ~roswell~, execute the following at the shell in the
+top-level directory of this package:
 
 #+BEGIN_SRC sh
 rove package-test.asd
