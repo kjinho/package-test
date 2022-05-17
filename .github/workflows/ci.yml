@@ -1,7 +1,6 @@
 name: tests
 env: 
   SYSTEM_FILE: package-test.asd
-  ROSWELL_INSTALL_DIR: ~/.local
 on:
   push:
     branches: [ main ]
@@ -16,8 +15,6 @@ jobs:
       matrix:
         lisp: [sbcl-bin]
         os: [ubuntu-latest, macos-latest]
-    env:
-      LISP: ${{ matrix.lisp }}
 
     steps:
       - uses: actions/checkout@v3
@@ -43,10 +40,13 @@ jobs:
           echo .qlot/bin >> $GITHUB_PATH
           echo $HOME/.local/bin >> $GITHUB_PATH
         if: steps.cache.outputs.cache-hit == 'true'
-      - uses: 40ants/setup-lisp@v2
+      - name: Install Roswell
         if: steps.cache.outputs.cache-hit != 'true'
-        with: 
-          asdf-system: cl-info
+        env:
+          LISP: ${{ matrix.lisp }}
+          ROSWELL_INSTALL_DIR: ~/.local
+        run: |
+          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
       - name: Install Rove 
         run: ros install rove
       - name: Run tests
