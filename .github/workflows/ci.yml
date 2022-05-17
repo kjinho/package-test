@@ -21,26 +21,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-          
+      - uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: packege-test
+      - uses: 40ants/run-tests@v2.1.2
+        with:
+          asdf-system: package-test     
       
 #      - name: Set Path To Cached Files
 #        run: |
 #          echo $HOME/.roswell/bin >> $GITHUB_PATH
 #          echo /usr/local/bin >> $GITHUB_PATH
 #        if: steps.cache.outputs.cache-hit == 'true'
-      - name: Install Homebrew 
-        if: runner.os == 'Linux'
-        env:
-          NONINTERACTIVE: 1
-        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: Install Roswell
+#      - name: Install Homebrew 
+#        if: runner.os == 'Linux'
+#        env:
+#          NONINTERACTIVE: 1
+#        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#      - name: Install Roswell
 #        if: steps.cache.outputs.cache-hit != 'true'
-        env:
-          LISP: ${{ matrix.lisp }}
+#        env:
+#          LISP: ${{ matrix.lisp }}
 #          ROSWELL_INSTALL_DIR: /home/runner/.local
-        run: |
-          brew install roswell
-          echo $HOME/.roswell/bin >> $GITHUB_PATH
+#        run: |
+#          brew install roswell
+#          echo $HOME/.roswell/bin >> $GITHUB_PATH
 #          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
 #      - name: Install CCL
 #        if: ${{ matrix.lisp }} == 'ccl-bin'
@@ -52,9 +57,9 @@ jobs:
 #        run: |
 #          ros install ecl
 #          ros use ecl
-      - name: Install Rove 
-        run: ros install rove
-      - name: Run tests
-        working-directory: .
-        run: |
-          rove ${{ env.SYSTEM_FILE }}
+#      - name: Install Rove 
+#        run: ros install rove
+#      - name: Run tests
+#        working-directory: .
+#        run: |
+#          rove ${{ env.SYSTEM_FILE }}
