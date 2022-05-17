@@ -13,7 +13,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        lisp: [sbcl-bin, ccl-bin, ecl]
+        lisp: 
+          - sbcl-bin
+#          - ccl-bin
+#          - ecl
         os: [ubuntu-latest, macos-latest]
 
     steps:
@@ -39,16 +42,16 @@ jobs:
           brew install roswell
           echo $HOME/.roswell/bin >> $GITHUB_PATH
 #          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
-      - name: Install CCL
-        if: ${{ matrix.lisp }} == 'ccl-bin'
-        run: |
-          ros install ccl-bin 
-          ros use ccl-bin
-      - name: Install ECL
-        if: ${{ matrix.lisp }} == 'ecl'
-        run: |
-          ros install ecl
-          ros use ecl
+#      - name: Install CCL
+#        if: ${{ matrix.lisp }} == 'ccl-bin'
+#        run: |
+#          ros install ccl-bin 
+#          ros use ccl-bin
+#      - name: Install ECL
+#        if: ${{ matrix.lisp }} == 'ecl'
+#        run: |
+#          ros install ecl
+#          ros use ecl
       - name: Install Rove 
         run: ros install rove
       - name: Run tests
