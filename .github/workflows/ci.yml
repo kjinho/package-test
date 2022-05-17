@@ -44,7 +44,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         env:
           LISP: ${{ matrix.lisp }}
-          ROSWELL_INSTALL_DIR: ~/.local
+          ROSWELL_INSTALL_DIR: $HOME/.local
         run: |
           curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
       - name: Install Rove 
