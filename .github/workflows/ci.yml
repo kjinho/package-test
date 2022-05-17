@@ -21,12 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
           
-      - name: Grant All Perms to Make Cache Restoring Possible
-        run: |
-          sudo mkdir -p /usr/local/etc/roswell
-          sudo chown "${USER}" /usr/local/etc/roswell
-          # Here the ros binary will be restored:
-          sudo chown "${USER}" /usr/local/bin
       - name: Get Current Month
         id: current-month
         run: |
@@ -38,12 +32,9 @@ jobs:
           cache-name: cache-roswell
         with:
           path: |
-            /usr/local/bin/ros
             ~/.cache/common-lisp/
             ~/.roswell
-            /usr/local/etc/roswell
-            .qlot
-          key: "key-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
+          key: "key1-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
       - name: Restore Path To Cached Files
         run: |
           echo $HOME/.roswell/bin >> $GITHUB_PATH
