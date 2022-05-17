@@ -13,37 +13,37 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        lisp: [sbcl-bin]
-        os: [ubuntu-latest, macos-latest]
+        lisp: [sbcl-bin, ccl-bin, ecl-bin, abcl-bin]
+        os: [macos-latest]
 
     steps:
       - uses: actions/checkout@v3
           
-      - name: Get Current Month
-        id: current-month
-        run: |
-          echo "::set-output name=value::$(date -u "+%Y-%m")"
-      - name: Cache Roswell Setup
-        id: cache
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-roswell
-        with:
-          path: |
-            ~/.cache/common-lisp/
-            ~/.roswell
-            ~/.local
-          key: "key2-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
+#      - name: Get Current Month
+#        id: current-month
+#        run: |
+#          echo "::set-output name=value::$(date -u "+%Y-%m")"
+#      - name: Cache Roswell Setup
+#        id: cache
+#        uses: actions/cache@v3
+#        env:
+#          cache-name: cache-roswell
+#        with:
+#          path: |
+#            ~/.cache/common-lisp/
+#            ~/.roswell
+#            ~/.local
+#          key: "key2-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
       - name: Set Path To Cached Files
         run: |
           echo $HOME/.roswell/bin >> $GITHUB_PATH
-          echo $HOME/.local/bin >> $GITHUB_PATH
+#          echo $HOME/.local/bin >> $GITHUB_PATH
 #        if: steps.cache.outputs.cache-hit == 'true'
       - name: Install Roswell
-        if: steps.cache.outputs.cache-hit != 'true'
+#        if: steps.cache.outputs.cache-hit != 'true'
         env:
           LISP: ${{ matrix.lisp }}
-          ROSWELL_INSTALL_DIR: /home/runner/.local
+#          ROSWELL_INSTALL_DIR: /home/runner/.local
         run: |
           curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
       - name: Install Rove 
