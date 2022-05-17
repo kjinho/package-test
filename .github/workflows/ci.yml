@@ -37,14 +37,15 @@ jobs:
 #          ROSWELL_INSTALL_DIR: /home/runner/.local
         run: |
           brew install roswell
+          echo $HOME/.roswell/bin >> $GITHUB_PATH
 #          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
       - name: Install CCL
-        if: ${{ matrix.lisp }} == ccl-bin
+        if: ${{ matrix.lisp }} == 'ccl-bin'
         run: |
           ros install ccl-bin 
           ros use ccl-bin
       - name: Install ECL
-        if: ${{ matrix.lisp }} == ecl
+        if: ${{ matrix.lisp }} == 'ecl'
         run: |
           ros install ecl
           ros use ecl
