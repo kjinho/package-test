@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        lisp: [sbcl-bin, ccl-bin, ecl]
+        lisp: [sbcl-bin]
         os: [ubuntu-latest]
     env:
       LISP: ${{ matrix.lisp }}
@@ -43,7 +43,7 @@ jobs:
             ~/.roswell
             /usr/local/etc/roswell
             .qlot
-          key: "${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
+          key: "${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
       - name: Restore Path To Cached Files
         run: |
           echo $HOME/.roswell/bin >> $GITHUB_PATH
