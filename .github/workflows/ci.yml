@@ -30,8 +30,8 @@ jobs:
           cache-name: cache-roswell
         with:
           path: |
-#            ~/.cache/common-lisp/
             ~/.roswell
+#            ~/.cache/common-lisp/
 #            ~/.local
           key: "key3-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
       - name: Set Path To Cached Files
