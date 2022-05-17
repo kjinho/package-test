@@ -20,14 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: 40ants/setup-lisp@v2
-        with: 
-          asdf-system: cl-info
-      - name: Install Rove 
-        run: ros install rove
-      - name: Run tests
-        run: |
-          rove ${{ env.SYSTEM_FILE }}
           
       - name: Grant All Perms to Make Cache Restoring Possible
         run: |
@@ -41,7 +33,7 @@ jobs:
           echo "::set-output name=value::$(date -u "+%Y-%m")"
       - name: Cache Roswell Setup
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-roswell
         with:
@@ -60,3 +52,11 @@ jobs:
       - uses: 40ants/setup-lisp@v2
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - uses: 40ants/setup-lisp@v2
+        with: 
+          asdf-system: cl-info
+      - name: Install Rove 
+        run: ros install rove
+      - name: Run tests
+        run: |
+          rove ${{ env.SYSTEM_FILE }}
