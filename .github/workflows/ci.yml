@@ -26,6 +26,6 @@ jobs:
       - name: Install Rove 
         run: ros install rove
       - name: Run tests
-      - run: |
+        run: |
           rove ${{ env.SYSTEM_FILE }}
 
