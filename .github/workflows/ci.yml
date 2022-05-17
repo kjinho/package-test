@@ -34,12 +34,11 @@ jobs:
             ~/.roswell
             ~/.local
           key: "key2-${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}-${{ matrix.lisp }}-${{ matrix.os }}-${{ hashFiles('qlfile.lock') }}"
-      - name: Restore Path To Cached Files
+      - name: Set Path To Cached Files
         run: |
           echo $HOME/.roswell/bin >> $GITHUB_PATH
-          echo .qlot/bin >> $GITHUB_PATH
           echo $HOME/.local/bin >> $GITHUB_PATH
-        if: steps.cache.outputs.cache-hit == 'true'
+#        if: steps.cache.outputs.cache-hit == 'true'
       - name: Install Roswell
         if: steps.cache.outputs.cache-hit != 'true'
         env:
