@@ -23,20 +23,14 @@ jobs:
       - uses: 40ants/setup-lisp@v2
         with: 
           asdf-system: cl-info
-      - uses: 40ants/run-tests@v2
-        with:
-          asdf-system: cl-info
-#      - name: Install Roswell
-#        env:
-#          LISP: ${{ matrix.lisp }}
+      - name: Install Rove 
+        run: ros install rove
+      - name: Run tests
+      - run: |
+          rove ${{ env.SYSTEM_FILE }}
 #        run: |
-###          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
-  #    - name: Install Rove
-  #      run: ros install rove
-  #    - name: Run tests
-  #      run: |
-  #        PATH="~/.roswell/bin:$PATH"
-  #        rove ${{ env.SYSTEM_FILE }}
+#          PATH="~/.roswell/bin:$PATH"
+#          rove ${{ env.SYSTEM_FILE }}
   #test-windows:
   #  name: ${{ matrix.lisp }} on ${{ matrix.os }}
   ##  runs-on: ${{ matrix.os }}
