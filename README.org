@@ -44,6 +44,13 @@ top-level directory of this package:
 rove package-test.asd
 #+END_SRC
 
+Alternatively, you may test the package using the ~roswell~ script
+`run-tests.ros`:
+
+#+BEGIN_SRC sh
+./run-tests.ros
+#+END_SRC
+
 This package is tested to work with [[http://www.sbcl.org/][SBCL]], [[https://ccl.clozure.com/][CCL]], [[https://common-lisp.net/project/ecl/][ECL]], and [[https://abcl.org/][ABCL]] on
 GNU/Linux and MacOS. It has also been tested to work with SBCL on
 Windows.
