@@ -35,12 +35,12 @@ jobs:
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          qlot exec ${{ github.action_path }}/run-tests.ros ${{ env.MAIN_SYSTEM }}
+          qlot exec run-tests.ros ${{ env.MAIN_SYSTEM }}
       - name: Run Tests (Windows)
         if: runner.os == 'Windows'
         shell: msys2 {0}
         run: |
-          qlot exec ${{ github.action_path }}/run-tests.ros ${{ env.MAIN_SYSTEM }}
+          qlot exec run-tests.ros ${{ env.MAIN_SYSTEM }}
       
 #      - name: Set Path To Cached Files
 #        run: |
