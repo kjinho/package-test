@@ -58,7 +58,6 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'true'
       - uses: 40ants/setup-lisp@v2
         if: steps.cache.outputs.cache-hit != 'true'
-      - uses: 40ants/setup-lisp@v2
         with:
           asdf-system: package-test
       - uses: 40ants/run-tests@v2.1.2
