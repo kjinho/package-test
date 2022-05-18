@@ -16,13 +16,15 @@ jobs:
       matrix:
         lisp: 
           - sbcl-bin
-#          - ccl-bin
-#          - ecl
-#          - abcl-bin
+          - ccl-bin
+          - ecl
+          - abcl-bin
         os: 
           - ubuntu-latest
           - macos-latest
-          - windows-latest
+        include:
+          - os: windows-latest
+            lisp: sbcl-bin
     env:
       LISP: ${{ matrix.lisp }}
 
