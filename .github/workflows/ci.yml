@@ -1,52 +1,72 @@
 name: tests
 env: 
   SYSTEM_FILE: package-test.asd
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test-linux-macos:
     name: ${{ matrix.lisp }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        lisp: [sbcl-bin, ccl-bin, ecl, abcl-bin]
-        os: [ubuntu-latest, macOS-latest]
+        lisp: 
+          - sbcl-bin
+          - ccl-bin
+          - ecl
+          - abcl-bin
+        os: 
+          - ubuntu-latest
+          - macos-latest
+          #- windows-latest
+    env:
+      LISP: ${{ matrix.lisp }}
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Roswell
-        env:
-          LISP: ${{ matrix.lisp }}
-        run: |
-          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
-      - name: Install Rove
-        run: ros install rove
-      - name: Run tests
-        run: |
-          PATH="~/.roswell/bin:$PATH"
-          rove ${{ env.SYSTEM_FILE }}
-  test-windows:
-    name: ${{ matrix.lisp }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        lisp: [sbcl-bin]
-        os: [windows-latest]
-
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - uses: msys2/setup-msys2@v2
-      - uses: actions/checkout@v2
-      - name: Install Roswell
-        env:
-          LISP: ${{ matrix.lisp }}
-        run: |
-          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
-      - name: Install Rove
-        run: ros install rove
-      - name: Run tests
-        run: |
-          PATH="/c/Users/runneradmin/.roswell/lisp/quicklisp/bin/:$PATH"
-          rove ${{ env.SYSTEM_FILE }}
+      - uses: actions/checkout@v3
+      - uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: packege-test
+      - uses: 40ants/run-tests@v2.1.2
+        with:
+          asdf-system: package-test     
+      
+#      - name: Set Path To Cached Files
+#        run: |
+#          echo $HOME/.roswell/bin >> $GITHUB_PATH
+#          echo /usr/local/bin >> $GITHUB_PATH
+#        if: steps.cache.outputs.cache-hit == 'true'
+#      - name: Install Homebrew 
+#        if: runner.os == 'Linux'
+#        env:
+#          NONINTERACTIVE: 1
+#        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#      - name: Install Roswell
+#        if: steps.cache.outputs.cache-hit != 'true'
+#        env:
+#          LISP: ${{ matrix.lisp }}
+#          ROSWELL_INSTALL_DIR: /home/runner/.local
+#        run: |
+#          brew install roswell
+#          echo $HOME/.roswell/bin >> $GITHUB_PATH
+#          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+#      - name: Install CCL
+#        if: ${{ matrix.lisp }} == 'ccl-bin'
+#        run: |
+#          ros install ccl-bin 
+#          ros use ccl-bin
+#      - name: Install ECL
+#        if: ${{ matrix.lisp }} == 'ecl'
+#        run: |
+#          ros install ecl
+#          ros use ecl
+#      - name: Install Rove 
+#        run: ros install rove
+#      - name: Run tests
+#        working-directory: .
+#        run: |
+#          rove ${{ env.SYSTEM_FILE }}
