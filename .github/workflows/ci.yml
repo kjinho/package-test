@@ -20,11 +20,9 @@ jobs:
           - ecl
           - abcl-bin
         os: 
-          - ubuntu-latest
-          - macos-latest
-        include:
-          - os: windows-latest
-            lisp: sbcl-bin
+          - windows-latest
+#          - macos-latest
+
     env:
       LISP: ${{ matrix.lisp }}
 
